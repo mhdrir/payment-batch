@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: payment-batch
+  main:
+    web-application-type: none
+    banner-mode: "off"
+  datasource:
+    url: jdbc:h2:file:${app.database.path};DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: validate   # the schema is owned by Flyway, Hibernate only verifies the mapping
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+app:
+  database:
+    path: /app/data/payments
+  batch:
+    input-directory: /app/input
+    output-directory: /app/output
+    allowed-currencies:
+      - EUR
+      - USD
+
+logging:
+  level:
+    root: INFO
+    com.ascory.paymentbatch: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
+

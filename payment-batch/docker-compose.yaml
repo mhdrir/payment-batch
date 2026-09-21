@@ -1,0 +1,12 @@
+services:
+  payment-batch:
+    build: .
+    container_name: payment-batch
+    volumes:
+      - ./input:/app/input
+      - ./output:/app/output
+      # Persists the H2 database (audit trail + idempotency check) across container restarts.
+      - ./data:/app/data
+    # The application is a batch job: it runs once and exits, it must not be restarted.
+    restart: "no"
+    # No port mapping: this is not a web application (see README).

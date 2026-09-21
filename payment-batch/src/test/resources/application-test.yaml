@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:payment-batch-test-${random.uuid};DB_CLOSE_DELAY=-1
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+app:
+  batch:
+    # tests trigger the batch explicitly instead of on context startup
+    auto-run: false
+    input-directory: target/test-input
+    output-directory: target/test-output
+
+logging:
+  level:
+    com.ascory.paymentbatch: INFO
+
+
